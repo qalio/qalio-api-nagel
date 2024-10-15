@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package nagel.v1;
+
+import "proto/v1/common/utils.proto";
+
+message TripLocation {
+  string trip_id = 1;
+  double latitude = 2;
+  double longitude = 3;
+  string timestamp = 4;
+}
+
+message TripTrackingRequest {
+  string trip_id = 1;
+}
+
+message TripTrackingResponse {
+  repeated TripLocation locations = 1;
+}
+
+service NagelService {
+  rpc UpdateLocation(TripLocation) returns (TripTrackingResponse);
+  rpc GetTripStatus(TripTrackingRequest) returns (TripTrackingResponse);
+}
